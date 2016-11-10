@@ -30,7 +30,7 @@ export default class ReadingList extends Component {
               return (
                 <div className= {style.readingListRow} key={reading.name + '_' + i}>
                   <div className={style.readingListItem}>{reading.value}</div>
-                  <div className={style.readingListItem}>{reading.takenAt}</div>
+                  <div className={style.readingListItem}>{reading.takenAt.toLocaleString()}</div>
                 </div>
               )
             }
