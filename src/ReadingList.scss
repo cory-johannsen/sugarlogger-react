@@ -1,0 +1,30 @@
+.readingList {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.readingListRow {
+  width: calc(100% - 25px);
+  max-width: 400px;
+  height: 25px;
+  padding-top: 4px;
+  padding-bottom: 1px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+}
+
+.readingListItem {
+  font-weight: normal;
+  text-align: left;
+  flex-grow: 0;
+  padding-left: 15px;
+  min-width: 75px;
+}
+
+.readingListHeader {
+  composes: readingListItem;
+  font-weight: bold;
+}
