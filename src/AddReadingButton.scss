@@ -1,6 +1,6 @@
 .addReadingButton {
   width: calc(100% - 35px);
-  max-width: 200px;
+  max-width: 350px;
   height: 30px;
   padding-left: 15px;
   padding-top: 4px;
@@ -8,13 +8,25 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   border: 1px solid black;
 }
 
-.input {
-  width: 75%;
+.readingInput {
+  width: 50px;
   height: 20px;
+}
+
+.dateInput {
+  width: 250px;
+  height: 20px;
+}
+
+.at {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: small;
 }
 
 .plus {

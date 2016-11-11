@@ -11,6 +11,20 @@ export default class ReadingList extends Component {
     onReadingAdd: React.PropTypes.func.isRequired
   }
 
+  constructor(props) {
+    super(props)
+    this.dateFormat = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Los_Angeles',
+      timeZoneName: 'short',
+      weekday: 'short',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  }
+
   handleAddReadingClick(reading) {
     this.props.onReadingAdd(reading)
   }
@@ -26,11 +40,12 @@ export default class ReadingList extends Component {
         {
           this.props.readings.map (
             (reading, i) => {
-              const readingCount = this.props.readings.length;
+
+              const takenAt = new Date(reading.takenAt)
               return (
-                <div className= {style.readingListRow} key={reading.name + '_' + i}>
+                <div className= {style.readingListRow} key={reading.takenAt + '_' + i}>
                   <div className={style.readingListItem}>{reading.value}</div>
-                  <div className={style.readingListItem}>{reading.takenAt.toLocaleString()}</div>
+                  <div className={style.readingListItem}>{takenAt.toLocaleString()}</div>
                 </div>
               )
             }
