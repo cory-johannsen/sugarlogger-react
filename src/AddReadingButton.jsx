@@ -10,9 +10,10 @@ export default class AddReadingButton extends Component {
 
   handleClick(e) {
     e.stopPropagation()
+    const takenAt = this.refs.takenAt.value === 'Now' ? new Date() : new Date(this.refs.takenAt.value)
     this.props.onClick({
       value: this.refs.reading.value,
-      takenAt: new Date(this.refs.takenAt.value)
+      takenAt: takenAt
     })
   }
 
@@ -27,7 +28,7 @@ export default class AddReadingButton extends Component {
       <div className={style.addReadingButton}>
         <input className={style.readingInput} type='text' ref='reading' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <div className={style.at}>at</div>
-        <input className={style.dateInput} type='text' ref='takenAt' defaultValue={new Date().toLocaleString() } onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <input className={style.dateInput} type='text' ref='takenAt' defaultValue={'Now'} onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <span className={style.plus} onClick={(e) => this.handleClick(e)}>+</span>
       </div>
     )

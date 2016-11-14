@@ -8,12 +8,13 @@
 .readingListRow {
   width: calc(100% - 25px);
   max-width: 400px;
-  height: 25px;
-  padding-top: 4px;
-  padding-bottom: 1px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
+  align-items: center
 }
 
 .readingListItem {
@@ -27,4 +28,15 @@
 .readingListHeader {
   composes: readingListItem;
   font-weight: bold;
+}
+
+.removeContainer {
+  margin-left: 15px;
+}
+
+.remove {
+  color: red;
+  font-size: x-large;
+  font-weight: bold;
+  transform: rotate(0.125turn);
 }

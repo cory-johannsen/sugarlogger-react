@@ -101,6 +101,61 @@ export default class App extends Component {
     }
   }
 
+  handleRemoveReading = (reading) => {
+    console.log('handleRemoveReading:', reading)
+
+    if (reading) {
+      // Do not allow duplicates
+      const url = this.props.apiUrlBase
+      const query = {
+        query: 'mutation removeReading($id: Int!)' +
+          ' { removeReading(id: $id)' +
+          ' { success, error} }',
+        variables: {
+          id: reading.id
+        }
+      }
+      const body = JSON.stringify(query)
+      // console.log('query body:', body)
+
+      fetch(url,
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: body
+        }
+      ).then (
+        (response) => {
+          console.log(response)
+          if (response.status != 200) {
+            console.log('Error removing reading:', response)
+          }
+          else if (response.success === false) {
+            console.log('Error removing reading:', response.error)
+          }
+          else {
+            const { readings } = this.state
+            readings.forEach((r, i) => {
+              if (r.id === reading.id) {
+                readings.splice(i, 1)
+              }
+            })
+
+            this.setState({
+              readings
+            })
+          }
+        }
+      ).catch (
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
+  }
+
 
   render() {
     return (
@@ -108,7 +163,7 @@ export default class App extends Component {
         <div className={style.appHeader}>
           <h2>SugarLogger</h2>
         </div>
-        <ReadingList readings={this.state.readings} onReadingAdd={this.handleAddReading} />
+        <ReadingList readings={this.state.readings} onReadingAdd={this.handleAddReading} onReadingRemove={this.handleRemoveReading} />
       </div>
     )
   }

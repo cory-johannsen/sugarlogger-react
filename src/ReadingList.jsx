@@ -8,7 +8,8 @@ export default class ReadingList extends Component {
 
   static propTypes = {
     readings: React.PropTypes.array.isRequired,
-    onReadingAdd: React.PropTypes.func.isRequired
+    onReadingAdd: React.PropTypes.func.isRequired,
+    onReadingRemove: React.PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -29,6 +30,10 @@ export default class ReadingList extends Component {
     this.props.onReadingAdd(reading)
   }
 
+  handleRemoveReadingClick(reading) {
+    this.props.onReadingRemove(reading)
+  }
+
   render () {
     return (
       <div className={style.readingList} >
@@ -46,6 +51,9 @@ export default class ReadingList extends Component {
                 <div className= {style.readingListRow} key={reading.takenAt + '_' + i}>
                   <div className={style.readingListItem}>{reading.value}</div>
                   <div className={style.readingListItem}>{takenAt.toLocaleString()}</div>
+                  <div className={style.removeContainer}>
+                    <div className={style.remove} onClick={() => this.handleRemoveReadingClick(reading)}>+</div>
+                  </div>
                 </div>
               )
             }
