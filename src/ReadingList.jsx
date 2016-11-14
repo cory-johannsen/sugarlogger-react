@@ -38,7 +38,7 @@ export default class ReadingList extends Component {
     return (
       <div className={style.readingList} >
         <AddReadingButton onClick={(reading) => this.handleAddReadingClick(reading)} />
-        <div className={style.readingListRow}>
+        <div className={style.readingListHeaderRow}>
           <div className={style.readingListHeader}>Reading</div>
           <div className={style.readingListHeader}>Taken At</div>
         </div>
@@ -48,9 +48,11 @@ export default class ReadingList extends Component {
 
               const takenAt = new Date(reading.takenAt)
               return (
-                <div className= {style.readingListRow} key={reading.takenAt + '_' + i}>
-                  <div className={style.readingListItem}>{reading.value}</div>
-                  <div className={style.readingListItem}>{takenAt.toLocaleString()}</div>
+                <div className= {style.readingListDataRow} key={reading.takenAt + '_' + i}>
+                  <div className={style.readingContainer}>
+                    <div className={style.readingListItem}>{reading.value}</div>
+                    <div className={style.readingListItem}>{takenAt.toLocaleString()}</div>
+                  </div>
                   <div className={style.removeContainer}>
                     <div className={style.remove} onClick={() => this.handleRemoveReadingClick(reading)}>+</div>
                   </div>
