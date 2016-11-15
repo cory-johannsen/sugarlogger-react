@@ -29,6 +29,7 @@ export default class Menu extends Component {
       <div className={style.menu}>
         <MenuItem title='Readings' onClick={onMenuItemClick} selected={selectedMenuItem === 'Readings'}/>
         <MenuItem title='Doses' onClick={onMenuItemClick} selected={selectedMenuItem === 'Doses'}/>
+        <MenuItem title='Meals' onClick={onMenuItemClick} selected={selectedMenuItem === 'Meals'}/>
       </div>
     )
   }

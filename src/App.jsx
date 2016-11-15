@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Menu from './Menu'
 import DoseList from './DoseList'
+import MealList from './MealList'
 import ReadingList from './ReadingList'
 import style from './App.scss'
 
@@ -23,6 +24,7 @@ export default class App extends Component {
   componentDidMount() {
     this.fetchReadings()
     this.fetchDoses()
+    this.fetchMeals()
   }
 
   fetchReadings() {
@@ -81,6 +83,36 @@ export default class App extends Component {
     ).catch (
       (err) => {
         console.log('fetchDoses', err)
+      }
+    )
+  }
+
+  fetchMeals() {
+    const url = this.props.apiUrlBase
+    const query = {
+      query: '{ meals { id, description, eatenAt, sugars, carbohydrates } }'
+    }
+    fetch(url,
+      {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(query)
+      }
+    ).then (
+      (response) => {
+        return response.json()
+      }
+    ).then (
+      (json) => {
+        this.setState({
+          meals: json.data.meals
+        })
+      }
+    ).catch (
+      (err) => {
+        console.log('fetchMeals', err)
       }
     )
   }
@@ -305,6 +337,118 @@ export default class App extends Component {
     }
   }
 
+  handleAddMeal = (meal) => {
+    console.log('handleAddMeal:', meal)
+
+    if (meal) {
+      // Do not allow duplicates
+      const url = this.props.apiUrlBase
+      const dateString = meal.takenAt.toISOString();
+      console.log('dateString', dateString)
+      const query = {
+        query: 'mutation addMeal($description: String!, $eatenAt: String!, $sugars: Int!, $carbohydrates: Int!)' +
+          ' { addMeal(description: $description, eatenAt: $eatenAt, sugars: $sugars, carbohydrates: $carbohydrates)' +
+          ' { id, description, eatenAt, sugars, carbohydrates } }',
+        variables: {
+          description: meal.description,
+          eatenAt: dateString,
+          sugars: meal.sugars,
+          carbohydrates: meal.carbohydrates
+        }
+      }
+      const body = JSON.stringify(query)
+      // console.log('query body:', body)
+
+      fetch(url,
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: body
+        }
+      ).then (
+        (response) => {
+          if (response.status != 200) {
+            console.log('Error adding meal:', response)
+          }
+          else {
+            return response.json()
+          }
+        }
+      ).then(
+        (json) => {
+          const { meals } = this.state
+          const meal = json.data.addMeal
+          meals.unshift(meal)
+
+          this.setState({
+            meals
+          })
+        }
+      ).catch (
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
+  }
+
+  handleRemoveMeal = (meal) => {
+    console.log('handleRemoveMeal:', meal)
+
+    if (meal) {
+      // Do not allow duplicates
+      const url = this.props.apiUrlBase
+      const query = {
+        query: 'mutation removeMeal($id: Int!)' +
+          ' { removeMeal(id: $id)' +
+          ' { success, error} }',
+        variables: {
+          id: meal.id
+        }
+      }
+      const body = JSON.stringify(query)
+      // console.log('query body:', body)
+
+      fetch(url,
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: body
+        }
+      ).then (
+        (response) => {
+          console.log(response)
+          if (response.status != 200) {
+            console.log('Error removing meal:', response)
+          }
+          else if (response.success === false) {
+            console.log('Error removing meal:', response.error)
+          }
+          else {
+            const { meals } = this.state
+            meals.forEach((r, i) => {
+              if (r.id === meal.id) {
+                meals.splice(i, 1)
+              }
+            })
+
+            this.setState({
+              meals
+            })
+          }
+        }
+      ).catch (
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
+  }
+
   handleMenuItemClick = (selectedMenuItem) => {
     this.setState({
       selectedMenuItem: selectedMenuItem
@@ -317,9 +461,14 @@ export default class App extends Component {
         <ReadingList readings={this.state.readings} onReadingAdd={this.handleAddReading} onReadingRemove={this.handleRemoveReading} />
       )
     }
-    else {
+    else if (selectedMenuItem === 'Doses') {
       return (
         <DoseList doses={this.state.doses} onDoseAdd={this.handleAddDose} onDoseRemove={this.handleRemoveDose} />
+      )
+    }
+    else {
+      return (
+        <MealList meals={this.state.meals} onMealAdd={this.handleAddMeal} onMealRemove={this.handleRemoveMeal} />
       )
     }
   }

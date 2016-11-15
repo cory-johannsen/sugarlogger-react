@@ -1,0 +1,61 @@
+.addMealButton {
+  width: calc(100% - 35px);
+  max-width: 400px;
+  height: 30px;
+  padding-left: 15px;
+  padding-top: 4px;
+  padding-bottom: 1px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 1px solid black;
+}
+
+.descriptionInput {
+  width: 50px;
+  height: 20px;
+}
+
+.sugars {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: small;
+}
+
+.sugarsInput {
+  width: 15px;
+  height: 20px;
+}
+
+.carbohydrates {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: small;
+}
+
+.carbohydratesInput {
+  width: 15px;
+  height: 20px;
+}
+
+.dateInput {
+  width: 100px;
+  height: 20px;
+}
+
+.at {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: small;
+}
+
+.plus {
+  margin-right: 17px;
+  margin-left: 10px;
+  padding-bottom: 10px;
+  font-size: x-large;
+}

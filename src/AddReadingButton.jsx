@@ -26,7 +26,7 @@ export default class AddReadingButton extends Component {
   render () {
     return (
       <div className={style.addReadingButton}>
-        <input className={style.readingInput} type='text' ref='reading' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <input className={style.readingInput} type='text' ref='reading' defaultValue='reading' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <div className={style.at}>at</div>
         <input className={style.dateInput} type='text' ref='takenAt' defaultValue={'Now'} onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <span className={style.plus} onClick={(e) => this.handleClick(e)}>+</span>
