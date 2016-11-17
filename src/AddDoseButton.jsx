@@ -26,7 +26,7 @@ export default class AddDoseButton extends Component {
   render () {
     return (
       <div className={style.addDoseButton}>
-        <input className={style.doseInput} type='text' ref='dose' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <input className={style.doseInput} type='text' ref='dose' defaultValue='dosage' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <div className={style.at}>at</div>
         <input className={style.dateInput} type='text' ref='takenAt' defaultValue={'Now'} onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <span className={style.plus} onClick={(e) => this.handleClick(e)}>+</span>

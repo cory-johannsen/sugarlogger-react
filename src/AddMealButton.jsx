@@ -15,6 +15,7 @@ export default class AddDoseButton extends Component {
       description: this.refs.description.value,
       sugars: this.refs.sugars.value,
       carbohydrates: this.refs.carbohydrates.value,
+      calories: this.refs.calories.value,
       eatenAt: eatenAt
     })
   }
@@ -33,8 +34,10 @@ export default class AddDoseButton extends Component {
         <input className={style.sugarsInput} type='text' ref='sugars' defaultValue='0' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <div className={style.carbohydrates}>Carbs:</div>
         <input className={style.carbohydratesInput} type='text' ref='carbohydrates' defaultValue='0' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <div className={style.calories}>Calories:</div>
+        <input className={style.caloriesInput} type='text' ref='calories' defaultValue='0' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <div className={style.at}>at</div>
-        <input className={style.dateInput} type='text' ref='eatenAt' defaultValue={'Now'} onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <input className={style.dateInput} type='text' ref='eatenAt' defaultValue='Now' onClick={(e) => e.stopPropagation()} onKeyPress={(e) => this.handleKeyPress(e)}/>
         <span className={style.plus} onClick={(e) => this.handleClick(e)}>+</span>
       </div>
     )

@@ -41,7 +41,8 @@ export default class MealList extends Component {
         <div className={style.mealListHeaderRow}>
           <div className={style.mealListHeader}>Description</div>
           <div className={style.mealListHeader}>Sugars</div>
-          <div className={style.mealListHeader}>Carbohydrates</div>
+          <div className={style.mealListHeader}>Carbs</div>
+          <div className={style.mealListHeader}>Calories</div>
           <div className={style.mealListHeader}>Eaten At</div>
         </div>
         {
@@ -55,6 +56,7 @@ export default class MealList extends Component {
                     <div className={style.mealListItem}>{meal.description}</div>
                     <div className={style.mealListItem}>{meal.sugars}</div>
                     <div className={style.mealListItem}>{meal.carbohydrates}</div>
+                    <div className={style.mealListItem}>{meal.calories}</div>
                     <div className={style.mealListItem}>{eatenAt.toLocaleString()}</div>
                   </div>
                   <div className={style.removeContainer}>

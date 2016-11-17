@@ -90,7 +90,7 @@ export default class App extends Component {
   fetchMeals() {
     const url = this.props.apiUrlBase
     const query = {
-      query: '{ meals { id, description, eatenAt, sugars, carbohydrates } }'
+      query: '{ meals { id, description, eatenAt, sugars, carbohydrates, calories } }'
     }
     fetch(url,
       {
@@ -343,17 +343,18 @@ export default class App extends Component {
     if (meal) {
       // Do not allow duplicates
       const url = this.props.apiUrlBase
-      const dateString = meal.takenAt.toISOString();
+      const dateString = meal.eatenAt.toISOString();
       console.log('dateString', dateString)
       const query = {
-        query: 'mutation addMeal($description: String!, $eatenAt: String!, $sugars: Int!, $carbohydrates: Int!)' +
-          ' { addMeal(description: $description, eatenAt: $eatenAt, sugars: $sugars, carbohydrates: $carbohydrates)' +
-          ' { id, description, eatenAt, sugars, carbohydrates } }',
+        query: 'mutation addMeal($description: String!, $eatenAt: String!, $sugars: Int!, $carbohydrates: Int!, $calories: Int!)' +
+          ' { addMeal(description: $description, eatenAt: $eatenAt, sugars: $sugars, carbohydrates: $carbohydrates, calories: $calories)' +
+          ' { id, description, eatenAt, sugars, carbohydrates, calories } }',
         variables: {
           description: meal.description,
           eatenAt: dateString,
           sugars: meal.sugars,
-          carbohydrates: meal.carbohydrates
+          carbohydrates: meal.carbohydrates,
+          calories: meal.calories
         }
       }
       const body = JSON.stringify(query)
